@@ -44,7 +44,7 @@ class AdminDirectorController extends AbstractController
 
             return $this->redirectToRoute('admin_director_index');
         }
-
+        $this->addFlash('success', 'le directeur est mort ! vive le directeur !');
         return $this->render('admin/director/edit.html.twig', [
             'director' => $director,
             'form' => $form->createView(),

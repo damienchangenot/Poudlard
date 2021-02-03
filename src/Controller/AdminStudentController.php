@@ -55,7 +55,7 @@ class AdminStudentController extends AbstractController
 
             return $this->redirectToRoute('admin_student_index');
         }
-
+        $this->addFlash('success', 'Si c\'est encore un coup Peeves il va m\'entendre ce coup-ci...');
         return $this->render('admin/student/edit.html.twig', [
             'student' => $student,
             'form' => $form->createView(),
@@ -75,7 +75,7 @@ class AdminStudentController extends AbstractController
             $entityManager->remove($student);
             $entityManager->flush();
         }
-
+        $this->addFlash('danger', 'A mettre au compte des pertes et profit');
         return $this->redirectToRoute('admin_student_index');
     }
 }
