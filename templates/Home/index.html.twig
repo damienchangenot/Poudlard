@@ -39,7 +39,12 @@
         </div>
     </div>
     <div>
-        <h2>Nos dernier arrivant</h2>
+        <h2 class="text-center my-5">Nos dernier élèves</h2>
+    <div class="row mx-0 justify-content-around">
+        {% for student in students %}
+            {% include 'include/_cardtrombi.html.twig' with {'people' : student} %}
+        {% endfor %}
+    </div>
     </div>
 </section>
 {% endblock %}
