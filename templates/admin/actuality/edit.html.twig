@@ -1,0 +1,15 @@
+{% extends 'layoutAdmin.html.twig' %}
+
+{% block title %}{{ parent() }} Modifier une actualités{% endblock %}
+
+{% block body %}
+    <section class="container py-5 ">
+        <h1 class="text-center">Modifier une actualité</h1>
+
+        {{ include('admin/actuality/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+        <div class="my-3">
+        {{ include('admin/actuality/_delete_form.html.twig') }}
+        </div>
+        <a  class="btn btn-secondary rounded-pill" href="{{ path('admin_actuality_index') }}">Retour à l'index</a>
+    </section>
+{% endblock %}

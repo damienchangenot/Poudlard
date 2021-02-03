@@ -26,7 +26,6 @@ class ActualityController extends AbstractController
             'actualities' => $actualityRepository->findBy([],['id' => 'DESC']),
         ]);
     }
-
     /**
      * @param Actuality $actuality
      * @return Response

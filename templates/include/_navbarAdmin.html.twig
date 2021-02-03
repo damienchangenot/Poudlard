@@ -1,4 +1,3 @@
-{% block navbar %}
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -8,10 +7,10 @@
             <a href="{{ path('home_index') }}">
                 <img class="navbar-brand py-0" src="{{ asset('build/poudlard-logo.png') }}" alt="poudlard logo" width="50" height="50">
             </a>
-            <a class="nav-item nav-link" href="{{ path('actuality_index') }}">Actualité</a>
-            <a class="nav-item nav-link" href="#">L'école</a>
-            <a class="nav-item nav-link" href="{{ path('trombinoscope') }}">Trombinoscope</a>
-            <a class="nav-item nav-link" href="#">Contact</a>
+            <a class="nav-item nav-link" href="{{ path('admin_student_index') }}">Élèves</a>
+            <a class="nav-item nav-link" href="{{path('admin_actuality_index') }}">Actualités</a>
+            <a class="nav-item nav-link" href="{{ path('admin_teacher_index') }}">Professeurs</a>
+            <a class="nav-item nav-link" href="{{path('admin_director_index')}}">Directeur</a>
         </div>
     </div>
     <div class="dropdown">
@@ -31,4 +30,3 @@
         </div>
     </div>
 </nav>
-{% endblock %}
