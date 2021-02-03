@@ -44,7 +44,7 @@ class AdminActualityController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($actuality);
             $entityManager->flush();
-
+            $this->addFlash('success', 'Evénement ajouter, plus besoin de la pensine ;-)');
             return $this->redirectToRoute('admin_actuality_index');
         }
 
@@ -68,6 +68,7 @@ class AdminActualityController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
+            $this->addFlash('success', 'Vous avez encore jouer avec le retourneur de temps avouez...?');
             return $this->redirectToRoute('admin_actuality_index');
         }
 
@@ -90,7 +91,7 @@ class AdminActualityController extends AbstractController
             $entityManager->remove($actuality);
             $entityManager->flush();
         }
-
+        $this->addFlash('danger', 'vous avez effacé une pan de l\'histoire de l\'école bravo...');
         return $this->redirectToRoute('admin_actuality_index');
     }
 }

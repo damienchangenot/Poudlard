@@ -44,7 +44,7 @@ class AdminTeacherController extends AbstractController
 
             return $this->redirectToRoute('admin_teacher_index');
         }
-
+        $this->addFlash('success', 'Je parie que c\'était le professeur de défense contre les forces du mal ?');
         return $this->render('admin/teacher/edit.html.twig', [
             'teacher' => $teacher,
             'form' => $form->createView(),
@@ -64,7 +64,7 @@ class AdminTeacherController extends AbstractController
             $entityManager->remove($teacher);
             $entityManager->flush();
         }
-
+        $this->addFlash('danger', 'Dolores Ombrage est de retour ?!');
         return $this->redirectToRoute('admin_teacher_index');
     }
 }
