@@ -1,0 +1,12 @@
+<div class="card" style="width: 18rem;">
+    <img class="card-img-top" src="{{ vich_uploader_asset(actuality, 'pictureFile') }}" alt="image de l'actualité">
+    <div class="card-body bg-secondary text-white">
+        <div class="text-actuality">
+        <h5 class="card-title">{{ actuality.title }}</h5>
+        <p class="card-text text-truncate">{{ actuality.description }}</p>
+        </div>
+        <div class="text-center mt-2">
+           <a href="{{path('actuality_show', {'id': actuality.id}) }}" class="btn btn-warning rounded-pill">En savoir plus</a>
+        </div>
+    </div>
+</div>

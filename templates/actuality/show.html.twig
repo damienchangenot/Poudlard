@@ -1,0 +1,15 @@
+{% extends 'layout.html.twig' %}
+{% block title %}{{ parent() }} {{ actuality.title }}{% endblock %}
+{% block stylesheet %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('actuality')}}
+{% endblock %}
+{% block body %}
+<section class=" container pt-5">
+    <h1 class="text-center mb-5">{{ actuality.title }}</h1>
+    <div class="text-center mb-5">
+        <img src="{{ vich_uploader_asset(actuality, 'pictureFile') }}" alt="Photos de l'actualité">
+    </div>
+    <p>{{ actuality.description }}{{ actuality.description }}{{ actuality.description }}{{ actuality.description }}</p>
+</section>
+{% endblock %}
