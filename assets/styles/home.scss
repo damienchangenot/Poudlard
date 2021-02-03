@@ -1,0 +1,9 @@
+@import "variable";
+
+.header{
+  background-image: url("../images/poudlard-background.jpg") ;
+}
+
+.carousel{
+  width: $width-carousel;
+}

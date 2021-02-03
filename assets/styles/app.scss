@@ -4,4 +4,14 @@
 body {
     margin-top: $margin-body;
     font-family: $font-family;
+    background: url("../images/bg-parchemin.jpg");
+
+}
+
+.header {
+    height: $height-header;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
 }
