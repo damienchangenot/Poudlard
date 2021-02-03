@@ -1,0 +1,13 @@
+{% extends 'layoutAdmin.html.twig' %}
+
+{% block title %}{{ parent() }} Ajouter une Actualités {% endblock %}
+
+{% block body %}
+    <section class="container mt-5">
+    <h1 class="text-center"> Ajouter une Actualités</h1>
+
+    {{ include('admin/actuality/_form.html.twig') }}
+
+    <a class="btn btn-secondary rounded-pill" href="{{ path('admin_actuality_index') }}">Retour à l'index</a>
+    </section>
+{% endblock %}

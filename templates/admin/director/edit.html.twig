@@ -1,0 +1,14 @@
+{% extends 'layoutAdmin.html.twig' %}
+
+{% block title %}{{ parent() }} Mettre à jour les informations du directeur{% endblock %}
+
+{% block body %}
+    <section class="container py-5">
+    <h1 class="text-center">Mettre à jour les informations du directeur</h1>
+
+    {{ include('admin/director/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+
+    <a class="btn btn-secondary rounded-pill" href="{{ path('admin_director_index') }}">Retour à l'index</a>
+
+    </section>
+{% endblock %}
