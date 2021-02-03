@@ -1,0 +1,19 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{parent()}} Actualités{% endblock %}
+{% block stylesheet %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('actuality')}}
+{% endblock %}
+{% block body %}
+<section class="mt-5">
+    <h1 class="text-center mb-5">Actualités</h1>
+    <div class="row mx-0">
+{% for actuality in actualities %}
+        <div class="col-md-6 col-lg-4 d-flex justify-content-center mb-5">
+    {% include 'include/_cardActuality.html.twig' %}
+        </div>
+{% endfor %}
+    </div>
+</section>
+{% endblock %}
