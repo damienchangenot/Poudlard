@@ -1,0 +1,23 @@
+{% extends 'layout.html.twig' %}
+{% block title %}{{ parent() }} Trombinoscope {% endblock %}
+{% block body %}
+    <section class="pt-4">
+    <h1 class="text-center mb-5">Trombinoscope</h1>
+    <div class="row mx-0">
+    {% for student in students %}
+        <div class="col-md-6 col-lg-4 d-flex justify-content-center mb-5">
+            {% include '/include/_cardtrombi.html.twig' with {'people' : student} %}
+        </div>
+    {% endfor %}
+       {% for teacher in teachers %}
+        <div class="col-md-6 col-lg-4 d-flex justify-content-center mb-5">
+            {% include '/include/_cardtrombi.html.twig' with {'people' : teacher} %}
+        </div>
+        {% endfor %}
+            <div class="col-md-6 col-lg-4 d-flex justify-content-center mb-5">
+                {% include '/include/_cardtrombi.html.twig' with {'people' : director} %}
+            </div>
+
+    </div>
+    </section>
+{% endblock %}
