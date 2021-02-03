@@ -13,6 +13,13 @@
     <header>
     {% block navbar %}{% endblock %}
     </header>
+    {% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="alert text-center alert-{{ label }} mb-0">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% endfor %}
         {% block body %}{% endblock %}
     {% block footer %}{% endblock %}
         {% block javascripts %}
