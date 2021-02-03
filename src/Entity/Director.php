@@ -3,10 +3,15 @@
 namespace App\Entity;
 
 use App\Repository\DirectorRepository;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=DirectorRepository::class)
+ * @Vich\Uploadable
  */
 class Director
 {
@@ -28,9 +33,31 @@ class Director
     private $picture;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @Vich\UploadableField(mapping="picture_file", fileNameProperty="picture")
+     * @Assert\File(
+     *     maxSize="1m",
+     *     mimeTypes={"image/jpeg", "image/png"}
+     *     )
+     * @var ?File
      */
-    private $phoneNumber;
+    private ?File $pictureFile = null;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private ?DateTimeInterface $updatedAt;
+
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private ?string $phoneNumber;
+
+    /**
+     * @ORM\OneToOne(targetEntity=User::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
 
     public function getId(): ?int
     {
@@ -61,15 +88,39 @@ class Director
         return $this;
     }
 
-    public function getPhoneNumber(): ?int
+    public function getPhoneNumber(): ?string
     {
         return $this->phoneNumber;
     }
 
-    public function setPhoneNumber(?int $phoneNumber): self
+    public function setPhoneNumber(?string $phoneNumber): self
     {
         $this->phoneNumber = $phoneNumber;
 
         return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+    public function setPictureFile(File $images = null):void
+    {
+        $this->pictureFile = $images;
+        if ($images) {
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getPictureFile(): ?File
+    {
+        return $this->pictureFile;
     }
 }

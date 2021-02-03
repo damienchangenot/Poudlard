@@ -2,7 +2,7 @@
 @import "variable";
 @import "navbar";
 body {
-    margin-top: $margin-body;
+    padding-top: $margin-body;
     font-family: $font-family;
     background: url("../images/bg-parchemin.jpg");
 

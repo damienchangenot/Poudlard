@@ -3,10 +3,15 @@
 namespace App\Entity;
 
 use App\Repository\TeacherRepository;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=TeacherRepository::class)
+ * @Vich\Uploadable
  */
 class Teacher
 {
@@ -28,6 +33,22 @@ class Teacher
     private $picture;
 
     /**
+     * @Vich\UploadableField(mapping="picture_file", fileNameProperty="picture")
+     * @Assert\File(
+     *     maxSize="1m",
+     *     mimeTypes={"image/jpeg", "image/png"}
+     *     )
+     * @var ?File
+     */
+    private ?File $pictureFile = null;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private ?DateTimeInterface $updatedAt;
+
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $subject;
@@ -36,6 +57,12 @@ class Teacher
      * @ORM\OneToOne(targetEntity=House::class, inversedBy="teacher", cascade={"persist", "remove"})
      */
     private $house;
+
+    /**
+     * @ORM\OneToOne(targetEntity=User::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
 
     public function getId(): ?int
     {
@@ -66,6 +93,19 @@ class Teacher
         return $this;
     }
 
+    public function setPictureFile(File $images = null):void
+    {
+        $this->pictureFile = $images;
+        if ($images) {
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getPictureFile(): ?File
+    {
+        return $this->pictureFile;
+    }
+
     public function getSubject(): ?string
     {
         return $this->subject;
@@ -86,6 +126,18 @@ class Teacher
     public function setHouse(?House $house): self
     {
         $this->house = $house;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
