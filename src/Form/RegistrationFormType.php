@@ -18,9 +18,6 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('student', StudentType::class, [
-                'label' => false,
-            ])
             ->add('email', EmailType::class, [
                 'attr' => [
                     'class' => 'rounded-pill'

@@ -25,6 +25,7 @@ class UserFixtures extends Fixture
             $admin,
             'adminpassword'
         ));
+        $admin->setIsEdited(true);
         $manager->persist($admin);
         $this->addReference('adminuser', $admin);
         $manager->flush();
@@ -34,6 +35,7 @@ class UserFixtures extends Fixture
             $student->setEmail('student' . $i . '@email.com');
             $student->setRoles(['ROLE_STUDENT']);
             $student->setPassword($this->passwordEncoder->encodePassword($student, 'student'));
+            $student->setIsEdited(true);
             $manager->persist($student);
             $this->addReference('student_' . $i, $student);
         }
@@ -42,6 +44,7 @@ class UserFixtures extends Fixture
             $teacher->setEmail('teacher' . $i . '@email.com');
             $teacher->setRoles(['ROLE_TEACHER']);
             $teacher->setPassword($this->passwordEncoder->encodePassword($teacher, 'teacher'));
+            $teacher->setIsEdited(true);
             $manager->persist($teacher);
             $this->addReference('teacher_' . $i, $teacher);
         }

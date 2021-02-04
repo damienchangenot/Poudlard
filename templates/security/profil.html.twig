@@ -1,8 +1,21 @@
 {% extends 'layout.html.twig' %}
-{% block title %}{{ parent() }} Profil{% endblock %}
+{% block title %}{{ parent() }} Votre Profil{% endblock %}
 
 {% block body %}*
-<section class="container">
+<section class="container py-5">
+    <h1 class="text-center"> Votre profil</h1>
+    <div class="text-center my-4">
+    {% if student.picture %}
+    <img src="{{ vich_uploader_asset(student, 'pictureFile') }}" alt="photo de profil">
+        {% else %}
+            <img src="{{ asset('build/dobby.jpg') }}" alt="RIP dobby">
 
+    {% endif %}
+    </div>
+    <h3>Nom : {{ student.name }}</h3>
+    <h4>Email : {{ app.user.username }}</h4>
+    {% if student.house.name  %}
+    <h4>Maison : {{ student.house.name }}</h4>
+    {% endif %}
 </section>
 {% endblock %}

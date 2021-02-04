@@ -62,7 +62,7 @@ class Student
 
     /**
      * @ORM\OneToOne(targetEntity=User::class, inversedBy="student", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $user;
 

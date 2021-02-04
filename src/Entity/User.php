@@ -46,6 +46,11 @@ class User implements UserInterface
      */
     private $student;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isEdited = false;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -154,6 +159,18 @@ class User implements UserInterface
         }
 
         $this->student = $student;
+
+        return $this;
+    }
+
+    public function getIsEdited(): ?bool
+    {
+        return $this->isEdited;
+    }
+
+    public function setIsEdited(bool $isEdited): self
+    {
+        $this->isEdited = $isEdited;
 
         return $this;
     }

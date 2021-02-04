@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Repository\DirectorRepository;
 use App\Repository\StudentRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -47,8 +48,10 @@ class SecurityController extends AbstractController
     {
         /** @var User $user */
         $user = $this->getUser();
+        $student = $studentRepository->findOneBy(['user' => $user]);
         return $this->render('security/profil.html.twig',[
-            'user' => $studentRepository->findOneBy(['user' => $user]) ?? $directorRepository->findOneBy(['user' => $user]),
+            'user' =>  $user,
+            'student'=> $student ?? $directorRepository->findOneBy(['user' => $user]),
 
         ]);
     }

@@ -26,7 +26,10 @@
         <div class="dropdown-menu dropdown-menu-right bg-warning " aria-labelledby="dropdownMenu2">
             {% if app.user %}
                 <span class="dropdown-item-text font-weight-bold">{{ app.user.email }}</span>
-                <a class="dropdown-item" href="#">Profil</a>
+                <a class="dropdown-item" href="{{ path('app_profil')}}">Profil</a>
+                {% if app.user.isEdited == false %}
+                <a class="dropdown-item" href="{{ path('edit_profil')}}">Editer Profil</a>
+                {% endif %}
                 <a class="dropdown-item" href="{{ path('app_logout') }}">Se déconnecter</a>
             {% else %}
                 <a class="dropdown-item" href="{{ path('app_login') }}">Se connecter</a>
