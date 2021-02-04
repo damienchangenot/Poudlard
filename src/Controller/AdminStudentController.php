@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Student;
 use App\Form\StudentType;
+use App\Form\TeacherType;
 use App\Repository\StudentRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -47,15 +48,19 @@ class AdminStudentController extends AbstractController
      */
     public function edit(Request $request, Student $student): Response
     {
-        $form = $this->createForm(StudentType::class, $student);
+        if ($student->getIsTeacher() == false) {
+            $form = $this->createForm(StudentType::class, $student);
+        } else {
+            $form = $this->createForm(TeacherType::class, $student);
+        }
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
+            $this->addFlash('success', 'Si c\'est encore un coup Peeves il va m\'entendre ce coup-ci...');
             return $this->redirectToRoute('admin_student_index');
         }
-        $this->addFlash('success', 'Si c\'est encore un coup Peeves il va m\'entendre ce coup-ci...');
+
         return $this->render('admin/student/edit.html.twig', [
             'student' => $student,
             'form' => $form->createView(),

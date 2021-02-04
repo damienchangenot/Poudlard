@@ -45,6 +45,11 @@ class RegistrationFormType extends AbstractType
                     'class' => 'rounded-pill'
                 ]
             ])
+            ->add('agreeTerms',CheckboxType::class, [
+                'mapped' => false,
+            'required' => true,
+            'label' => 'Je jure solennellement que mes intentions NE sont PAS mauvaises'
+            ])
 
         ;
     }

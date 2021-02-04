@@ -16,12 +16,18 @@
             </tr>
             <tr>
                 <th>Maison</th>
-                <td>{{ student.house.name}}</td>
+                <td>{{ student.house.name ?? ''}}</td>
             </tr>
             <tr>
-                <th>Proffesseur Principale</th>
-                <td>{{ student.house.teacher.name }}</td>
+                <th>Professeur</th>
+                <td>{{ student.isTeacher ? 'Oui' : 'Non' }}</td>
             </tr>
+            {% if student.isTeacher == true %}
+            <tr>
+                <th>Matière</th>
+                <td>{{ student.subject ?? ''}}</td>
+            </tr>
+        {% endif %}
         </tbody>
     </table>
      <div class="row justify-content-center mx-0">

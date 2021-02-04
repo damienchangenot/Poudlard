@@ -4,8 +4,8 @@
 body {
     padding-top: $margin-body;
     font-family: $font-family;
-    background: url("../images/bg-parchemin.jpg");
-
+    background:  url("../images/bg.jpg");
+    color: $white;
 }
 
 .header {
@@ -23,4 +23,14 @@ body {
 
 .border{
     border: 5px solid $warning !important;
+}
+
+h1, h2 {
+    font-family: $font-school;
+}
+h1{
+    font-size: $font-size-title;
+}
+h2{
+    font-size: $font-size-2;
 }

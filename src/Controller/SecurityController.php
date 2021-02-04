@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Repository\DirectorRepository;
+use App\Repository\StudentRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\DisabledException;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
@@ -32,5 +35,21 @@ class SecurityController extends AbstractController
     public function logout()
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+    }
+
+    /**
+     * @Route ("/profil", name="app_profil")
+     * @param StudentRepository $studentRepository
+     * @param DirectorRepository $directorRepository
+     * @return Response
+     */
+    public function profil( StudentRepository $studentRepository, DirectorRepository $directorRepository): Response
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+        return $this->render('security/profil.html.twig',[
+            'user' => $studentRepository->findOneBy(['user' => $user]) ?? $directorRepository->findOneBy(['user' => $user]),
+
+        ]);
     }
 }

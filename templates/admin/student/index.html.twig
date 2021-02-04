@@ -1,10 +1,10 @@
 {% extends 'layoutAdmin.html.twig' %}
 
-{% block title %}{{ parent() }} Liste des élèves{% endblock %}
+{% block title %}{{ parent() }} Liste des personnes dans l'école{% endblock %}
 
 {% block body %}
     <section class="container pt-5 pb-3">
-    <h1 class="text-center mb-3">Liste des élèves</h1>
+    <h1 class="text-center mb-3">Liste des personnes dans l'école</h1>
         <div class="text-right mb-4">
         </div>
     <table class="table table-dark table-striped table-hover">
@@ -12,14 +12,16 @@
             <tr>
                 <th>Nom</th>
                 <th>Maison</th>
-                <th>actions</th>
+                <th>Professeur</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for student in students %}
             <tr>
                 <td>{{ student.name }}</td>
-                <td>{{ student.house.name }}</td>
+                <td>{{ student.house.name ?? '' }}</td>
+                <td>{{ student.isTeacher ? 'Oui' : 'Non' }}</td>
                 <td>
                     <a class=" btn text-white px-0 " href="{{ path('admin_student_show', {'id': student.id}) }}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
