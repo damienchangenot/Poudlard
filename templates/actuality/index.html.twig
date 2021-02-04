@@ -9,11 +9,24 @@
 <section class="mt-5">
     <h1 class="text-center mb-5">Actualités</h1>
     <div class="row mx-0">
-{% for actuality in actualities %}
-        <div class="col-md-6 col-lg-4 d-flex justify-content-center mb-5">
-    {% include 'include/_cardActuality.html.twig' %}
+        <div class="col bg-dark d-none d-lg-block">
+            <h3 class="mt-4">Filtre</h3>
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <div class="text-center">
+                <button class="btn btn-warning rounded-pill">Filtrer</button>
+            </div>
+            {{ form_end(form) }}
         </div>
-{% endfor %}
+        <div class="col-lg-10">
+            <div class="row mx-0">
+        {% for actuality in actualities %}
+                <div class="col-md-6 col-lg-4 d-flex justify-content-center mb-5">
+            {% include 'include/_cardActuality.html.twig' %}
+                </div>
+        {% endfor %}
+            </div>
+        </div>
     </div>
 </section>
 {% endblock %}

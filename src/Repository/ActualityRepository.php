@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Actuality;
+use App\Entity\ActualitySearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,6 +20,17 @@ class ActualityRepository extends ServiceEntityRepository
         parent::__construct($registry, Actuality::class);
     }
 
+    public function findActuality(ActualitySearch $actualitySearch)
+    {
+        $queryBuilder = $this->createQueryBuilder('a');
+        if ($actualitySearch->getTitle()){
+            $queryBuilder->
+                andWhere('a.title LIKE :title')
+                    ->setParameter('title', '%' . $actualitySearch->getTitle() . '%');
+        }
+
+        return $queryBuilder->getQuery()->getResult();
+    }
     // /**
     //  * @return Actuality[] Returns an array of Actuality objects
     //  */
