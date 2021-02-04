@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Student;
+use App\Entity\StudentSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,32 +20,26 @@ class StudentRepository extends ServiceEntityRepository
         parent::__construct($registry, Student::class);
     }
 
-    // /**
-    //  * @return Student[] Returns an array of Student objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findStudent(StudentSearch $studentSearch)
     {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $queryBuilder = $this->createQueryBuilder('s');
+        if($studentSearch->getName()){
+            $queryBuilder->
+                andWhere('s.name LIKE :name')
+                    ->setParameter('name', '%'. $studentSearch->getName() .'%');
+        }
+        if ($studentSearch->getIsTeacher() == true){
+            $queryBuilder->
+                andWhere('s.IsTeacher = :IsTeacher')
+                    ->setParameter('IsTeacher', $studentSearch->getIsTeacher());
+        }
+        if (!($studentSearch->getHouse()->isEmpty())){
+            $queryBuilder->
+                join('s.house', 'h')
+                ->andWhere('h.id IN(:house)')
+                    ->setParameter('house', $studentSearch->getHouse());
+        }
+        return $queryBuilder->getQuery()->getResult();
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Student
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

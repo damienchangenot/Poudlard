@@ -9,13 +9,15 @@
 {% block body %}
 <section >
     <div class="header d-flex align-items-center justify-content-center ">
-    <h1 class="title text-center text-white title-header">Bienvenue à Poudlard !</h1>
+    <h1 class="title text-center text-white title-header mx-4">Bienvenue à Poudlard !</h1>
     </div>
     <div>
         <h2 class="text-center my-5">Nos dernières actualités</h2>
         <div class="row mx-0 justify-content-around">
             {% for actuality in actualities %}
+                <div class="my-3">
                 {% include 'include/_cardActuality.html.twig' %}
+                </div>
             {% endfor %}
         </div>
     </div>

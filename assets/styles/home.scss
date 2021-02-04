@@ -2,12 +2,20 @@
 
 .header{
   background-image: url("../images/poudlard-background.jpg") ;
+  height: $height-header;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
 }
-
 .carousel{
   width: $width-carousel;
 }
 
 .title{
   font-size: $font-size-title-home;
+}
+
+@media screen  and (max-width: 992px) {
+
 }
