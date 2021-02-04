@@ -1,5 +1,28 @@
 @import "variable";
 
 .poudlard{
-  max-width: 475px ;
+  max-width: 100% ;
+}
+
+.img-celeb{
+  max-width:150px;
+}
+.card-celeb{
+  background-color: transparent;
+  height: 200px !important;
+}
+@media screen and (max-width: 460px) {
+
+  .celeb{
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  .card-celeb{
+    height: 285px;
+  }
+  .text{
+    text-align: center !important;
+  }
 }

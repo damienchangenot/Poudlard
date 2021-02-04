@@ -46,18 +46,18 @@
     <div>
         <h2 class="text-center py-4">Nos petit plus</h2>
         <div class="row mx-0">
-           <div class="col">
+           <div class="col-md-6 col-lg-4 my-4">
                <figure class="text-center">
                    <img class="bg-secondary rounded-pill p-3 border border-secondary" src="{{ asset('build/bed.png') }}" alt="bed logo">
                    <h5>Possibiliter d'internat </h5>
                </figure>
            </div>
-           <div class="col">
+           <div class="col-md-6 col-lg-4 my-4">
                <figure class="text-center">
                    <img class="bg-secondary rounded-pill p-3 border border-secondary" src="{{ asset('build/pine.png') }}" alt="bed logo">
                    <h5>De grand espace vert appelant à l'aventure</h5>
                </figure></div>
-           <div class="col">
+           <div class="col-md-6 col-lg-4 my-4">
                <figure class="text-center">
                    <img class="bg-secondary rounded-pill p-3 border border-secondary" src="{{ asset('build/chateau-frontenac.png') }}" alt="bed logo">
                    <h5>Un chateau qui recelle bien de mystère dont certains restent encre à decouvir</h5>
@@ -65,6 +65,43 @@
            </div>
         </div>
     </div>
-
+    <div class="container">
+        <h2 class="text-center">Nos Célébritès </h2>
+        <div class="row celeb mx-0  my-5">
+            <img class="img-fluid img-celeb rounded-pill" src="{{ asset('build/dragonneau.jpg') }}" alt="norbert dragonneau picture">
+            <div class="col text mx-lg-5 mt-lg-4">
+                <h3 class="mb-2">Norbert Dragonneau</h3>
+                <p>Un des plus célèbres magizoologiste, auteur du livre <i>Vie et habitat des animaux fantasstiques</i></p>
+            </div>
+        </div>
+        <div class="row mx-0 celeb flex-row-reverse my-5">
+            <img class="img-fluid img-celeb rounded-pill" src="{{ asset('build/hp1.jpg') }}" alt="Harry Potter picture">
+            <div class="col text mx-lg5 mt-lg-4 text-right">
+                <h3 class="mb-2 ">Harry Potter</h3>
+                <p class="">Le nouveau né le plus célèbre au monde après le bébé royal...</p>
+            </div>
+        </div>
+        <div class="row mx-0 celeb  my-5">
+            <img class="img-fluid img-celeb rounded-pill" src="{{ asset('build/dumbledore.jpg') }}" alt="Albus Dmbledore picture">
+            <div class="col text mx-lg-5 mt-lg-4">
+                <h3 class="mb-2">Albus Dumbledore</h3>
+                <p>Le plus célèbre directeur de notre école ainsi qu'un des sorciers les plus puissant de notre époque</p>
+            </div>
+        </div>
+        <div class="row mx-0 celeb flex-row-reverse my-5">
+            <img class="img-fluid img-celeb rounded-pill" src="{{ asset('build/gilderoy.png') }}" alt="Surprise picture">
+            <div class="col text mx-lg-5 mt-lg-4 text-right">
+                <h3 class="mb-2 ">Gilderoy Lockhart</h3>
+                <p>Eh mince on dirait que Peeves fait encore des siennes... </p>
+            </div>
+        </div>
+        <div class="row flex-wrap mx-0 celeb my-5">
+             <img class="img-fluid img-celeb rounded-pill mx-auto" src="{{ asset('build/voldemort.png') }}" alt="Avada Kadavra ! picture">
+            <div class="col text mx-lg-5 mt-lg-4">
+                <h3 class="mb-2">Tom Jedusor</h3>
+                <p>Va peut être falloir penser à prendre des bains de soleil Volvi t'es pas d'accord ?</p>
+            </div>
+        </div>
+    </div>
 </section>
 {% endblock %}
