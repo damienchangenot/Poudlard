@@ -42,6 +42,7 @@ class RegistrationFormType extends AbstractType
                     'class' => 'rounded-pill'
                 ]
             ])
+            ->add('student', StudentType::class)
         ;
     }
 

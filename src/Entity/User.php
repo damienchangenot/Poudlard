@@ -41,6 +41,11 @@ class User implements UserInterface
      */
     private $isVerified = false;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Student::class, mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $student;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -131,4 +136,25 @@ class User implements UserInterface
         return $this;
     }
 
+    public function getStudent(): ?Student
+    {
+        return $this->student;
+    }
+
+    public function setStudent(?Student $student): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($student=== null && $this->student !== null) {
+            $this->student->setUser(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($student !== null && $student->getUser() !== $this) {
+            $student->setUser($this);
+        }
+
+        $this->student = $student;
+
+        return $this;
+    }
 }

@@ -49,19 +49,17 @@ class Student
      */
     private ?DateTimeInterface $updatedAt;
 
-
-    /**
-     * @ORM\OneToOne(targetEntity=User::class, cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $user;
-
     /**
      * @ORM\ManyToOne(targetEntity=House::class, inversedBy="students")
      * @ORM\JoinColumn(nullable=false)
      */
     private $house;
 
+    /**
+     * @ORM\OneToOne(targetEntity=User::class, inversedBy="student", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
 
     public function getId(): ?int
     {
@@ -128,6 +126,7 @@ class Student
     {
         return $this->pictureFile;
     }
+
 
 
 }
