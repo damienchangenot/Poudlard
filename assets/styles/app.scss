@@ -1,6 +1,9 @@
 @import "~bootstrap/scss/bootstrap";
 @import "variable";
 @import "navbar";
+@import "home";
+@import "about";
+@import "actuality";
 body {
     padding-top: $margin-body;
     font-family: $font-family;

@@ -17,5 +17,10 @@
 }
 
 @media screen  and (max-width: 992px) {
-
+  .header{
+    background: none;
+  }
+  .title{
+    font-size: $font-size-title;
+  }
 }

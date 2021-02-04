@@ -1,13 +1,8 @@
 {% extends 'layout.html.twig' %}
 
 {% block title %}{{ parent() }} Acceuil {% endblock %}
-{% block stylesheet %}
-    {{ parent() }}
-    {{ encore_entry_link_tags('home')}}
-    {{ encore_entry_link_tags('actuality')}}
-{% endblock %}
 {% block body %}
-<section >
+<section class="pb-5" >
     <div class="header d-flex align-items-center justify-content-center ">
     <h1 class="title text-center text-white title-header mx-4">Bienvenue à Poudlard !</h1>
     </div>
