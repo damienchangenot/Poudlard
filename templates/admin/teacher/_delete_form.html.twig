@@ -1,5 +1,0 @@
-<form method="post" action="{{ path('admin_teacher_delete', {'id': teacher.id}) }}" onsubmit="return confirm('Confirmer la suppression?');">
-    <input type="hidden" name="_method" value="DELETE">
-    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ teacher.id) }}">
-    <button class="btn btn-secondary rounded-pill">Supprimer</button>
-</form>

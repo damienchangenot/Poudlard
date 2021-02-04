@@ -1,0 +1,75 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{parent()}} L'ecole{% endblock %}
+{% block stylesheet %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('about')}}
+
+{% endblock %}
+{% block body %}
+<section class="my-5">
+    <h1 class="text-center mb-5">Lumos sur</h1>
+<div class="row mx-0">
+    <div class="col-xl-3 offset-xl-1 about-us-text">
+        <h3 class="mb-4 reveal-1">C'est quoi Poudlard ?</h3>
+        <div>
+            <h4 class="pb-2 reveal-2">L'école qui tisse des lien entre sorciers du monde entier</h4>
+            <ul class="text-left reveal-3">
+                <li>Œuvrer pour le bien être entre les sorciers et les moldus </li>
+                <li>Spécialisation en architecture et le développement personel des sorciers </li>
+                <li>Parce que estimons que chaque sorciers a droit à son odyssey, et pas seulement ceux
+                qui ont survecu a Voldemort</li>
+            </ul>
+            <h4 class="py-4 reveal-3">Plus de 1000 ans d’expérience dans l'éducation de sorcier dont certains
+            sont devenus des légendes !</h4>
+        </div>
+    </div>
+    <div class="col-xl-4 mb-5">
+        <img src="{{ asset('build/poudlard.png') }}"
+             class="poudlard mb-md-4 mt-4 mt-md-0 reveal-1" alt="Poudlard Logo">
+    </div>
+    <div class="col-xl-3 align-baseline about-us-text reveal-1">
+        <h3 class="mb-4">Les origines de l'école</h3>
+        <h4 class="pb-2 ">Fonder par 4 des plus grand sorciers qui ont pu exister</h4>
+        <ul class="text-left">
+            <li>Godric Gryffondor dit "le fayot"</li>
+            <li>Salazard Serpentard dit "le canard boiteux" </li>
+            <li>Helga Poufsouffle dit "la joufflue"</li>
+            <li>Rowena Serdaigle dit "la fragile" </li>
+        </ul>
+        <h4 class="pt-3  reveal-2">Une manière singulière pour répartir les élève entre maison </h4>
+        <ul class="text-left reveal-3">
+            <li>En interne avec l'aide d'un choipeau magique les élève sont répartis en fonction de leur tempéramment.
+            </li>
+
+            <li>Les maisons sont en compétitions chaque année ceci afin de motiver chaque élève...
+                Mais soyons honnete Serpentard gagne sou...( <i>"+10000 Points pour Londubat!"</i>)... Dumbledore vraiment... ?
+            </li>
+        </ul>
+    </div>
+</div>
+    <div>
+        <h2 class="text-center py-4">Nos petit plus</h2>
+        <div class="row mx-0">
+           <div class="col">
+               <figure class="text-center">
+                   <img class="bg-secondary rounded-pill p-3 border border-secondary" src="{{ asset('build/bed.png') }}" alt="bed logo">
+                   <h5>Possibiliter d'internat </h5>
+               </figure>
+           </div>
+           <div class="col">
+               <figure class="text-center">
+                   <img class="bg-secondary rounded-pill p-3 border border-secondary" src="{{ asset('build/pine.png') }}" alt="bed logo">
+                   <h5>De grand espace vert appelant à l'aventure</h5>
+               </figure></div>
+           <div class="col">
+               <figure class="text-center">
+                   <img class="bg-secondary rounded-pill p-3 border border-secondary" src="{{ asset('build/chateau-frontenac.png') }}" alt="bed logo">
+                   <h5>Un chateau qui recelle bien de mystère dont certains restent encre à decouvir</h5>
+               </figure>
+           </div>
+        </div>
+    </div>
+
+</section>
+{% endblock %}

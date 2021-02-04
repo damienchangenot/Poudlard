@@ -32,7 +32,7 @@ class Student
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $picture;
+    private $picture = null;
 
     /**
      * @Vich\UploadableField(mapping="picture_file", fileNameProperty="picture")
@@ -51,15 +51,25 @@ class Student
 
     /**
      * @ORM\ManyToOne(targetEntity=House::class, inversedBy="students")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $house;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $subject;
 
     /**
      * @ORM\OneToOne(targetEntity=User::class, inversedBy="student", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $IsTeacher;
 
     public function getId(): ?int
     {
@@ -127,6 +137,28 @@ class Student
         return $this->pictureFile;
     }
 
+    public function getSubject(): ?string
+    {
+        return $this->subject;
+    }
 
+    public function setSubject(string $subject): self
+    {
+        $this->subject = $subject;
+
+        return $this;
+    }
+
+    public function getIsTeacher(): ?bool
+    {
+        return $this->IsTeacher;
+    }
+
+    public function setIsTeacher(bool $IsTeacher): self
+    {
+        $this->IsTeacher = $IsTeacher;
+
+        return $this;
+    }
 
 }

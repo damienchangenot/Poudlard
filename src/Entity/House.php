@@ -25,11 +25,6 @@ class House
     private $name;
 
     /**
-     * @ORM\OneToOne(targetEntity=Teacher::class, mappedBy="house", cascade={"persist", "remove"})
-     */
-    private $teacher;
-
-    /**
      * @ORM\OneToMany(targetEntity=Student::class, mappedBy="house", orphanRemoval=true)
      */
     private $students;
@@ -53,28 +48,6 @@ class House
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getTeacher(): ?Teacher
-    {
-        return $this->teacher;
-    }
-
-    public function setTeacher(?Teacher $teacher): self
-    {
-        // unset the owning side of the relation if necessary
-        if ($teacher === null && $this->teacher !== null) {
-            $this->teacher->setHouse(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($teacher !== null && $teacher->getHouse() !== $this) {
-            $teacher->setHouse($this);
-        }
-
-        $this->teacher = $teacher;
 
         return $this;
     }

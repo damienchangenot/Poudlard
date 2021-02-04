@@ -14,18 +14,16 @@ class TrombinoscopeController extends AbstractController
     /**
      * @Route("/trombinoscope", name="trombinoscope")
      * @param StudentRepository $studentRepository
-     * @param TeacherRepository $teacherRepository
      * @param DirectorRepository $directorRepository
      * @return Response
      */
     public function index( StudentRepository $studentRepository,
-                           TeacherRepository $teacherRepository,
                            DirectorRepository $directorRepository
     ): Response
     {
         return $this->render('Trombi/index.html.twig', [
-            'students' => $studentRepository->findAll(),
-            'teachers' => $teacherRepository->findAll(),
+            'students' => $studentRepository->findBy(['IsTeacher' => false ], ['id' => 'DESC']),
+            'teachers' => $studentRepository->findBy(['IsTeacher' => true ], ['id' => 'DESC']),
             'director'=> $directorRepository->findOneBy([])
         ]);
     }

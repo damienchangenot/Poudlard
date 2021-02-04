@@ -29,13 +29,21 @@ class UserFixtures extends Fixture
         $this->addReference('adminuser', $admin);
         $manager->flush();
 
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i <= 19; $i++) {
             $student = new User();
             $student->setEmail('student' . $i . '@email.com');
-            $student->setRoles(['ROLE_CONTRIBUTOR']);
+            $student->setRoles(['ROLE_STUDENT']);
             $student->setPassword($this->passwordEncoder->encodePassword($student, 'student'));
             $manager->persist($student);
             $this->addReference('student_' . $i, $student);
+        }
+        for ($i = 20; $i <= 40; $i++) {
+            $teacher = new User();
+            $teacher->setEmail('teacher' . $i . '@email.com');
+            $teacher->setRoles(['ROLE_TEACHER']);
+            $teacher->setPassword($this->passwordEncoder->encodePassword($teacher, 'teacher'));
+            $manager->persist($teacher);
+            $this->addReference('teacher_' . $i, $teacher);
         }
 
         $manager->flush();
