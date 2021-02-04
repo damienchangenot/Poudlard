@@ -9,7 +9,7 @@
         {% endblock %}
         <link rel="icon" href="{{ asset('build/favicon.jpg') }}">
     </head>
-    <body>
+    <body  data-controller="symfony--ux-swup--swup">
     <header>
     {% block navbar %}{% endblock %}
     </header>
@@ -20,7 +20,9 @@
         </div>
     {% endfor %}
     {% endfor %}
+    <main id="swup">
         {% block body %}{% endblock %}
+    </main>
     {% block footer %}{% endblock %}
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
