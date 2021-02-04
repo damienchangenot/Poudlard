@@ -7,6 +7,7 @@ namespace App\Controller;
 use App\Entity\Actuality;
 use App\Form\ActualityType;
 use App\Repository\ActualityRepository;
+use App\Services\Slugify;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,9 +33,10 @@ class AdminActualityController extends AbstractController
     /**
      * @Route("/new", name="new", methods={"GET","POST"})
      * @param Request $request
+     * @param Slugify $slugify
      * @return Response
      */
-    public function new(Request $request): Response
+    public function new(Request $request, Slugify $slugify): Response
     {
         $actuality = new Actuality();
         $form = $this->createForm(ActualityType::class, $actuality);
@@ -42,6 +44,8 @@ class AdminActualityController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $slug = $slugify->generate($actuality->getTitle());
+            $actuality->setSlug($slug);
             $entityManager->persist($actuality);
             $entityManager->flush();
             $this->addFlash('success', 'Evénement ajouter, plus besoin de la pensine ;-)');
@@ -58,15 +62,19 @@ class AdminActualityController extends AbstractController
      * @Route("/{id}/edit", name="edit", methods={"GET","POST"})
      * @param Request $request
      * @param Actuality $actuality
+     * @param Slugify $slugify
      * @return Response
      */
-    public function edit(Request $request, Actuality $actuality): Response
+    public function edit(Request $request, Actuality $actuality, Slugify $slugify): Response
     {
         $form = $this->createForm(ActualityType::class, $actuality);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+             $entityManager= $this->getDoctrine()->getManager();
+            $slug = $slugify->generate($actuality->getTitle());
+            $actuality->setSlug($slug);
+            $entityManager->flush();
 
             $this->addFlash('success', 'Vous avez encore jouer avec le retourneur de temps avouez...?');
             return $this->redirectToRoute('admin_actuality_index');

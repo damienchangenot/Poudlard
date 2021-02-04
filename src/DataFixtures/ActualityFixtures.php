@@ -3,12 +3,19 @@
 namespace App\DataFixtures;
 
 use App\Entity\Actuality;
+use App\Services\Slugify;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker;
 
 class ActualityFixtures extends Fixture
 {
+    private $slugify;
+
+    public function __construct(Slugify $slugify)
+    {
+        $this->slugify = $slugify;
+    }
     public function load(ObjectManager $manager)
     {
         $faker  =  Faker\Factory::create('fr_FR');
@@ -20,6 +27,8 @@ class ActualityFixtures extends Fixture
             $actuality->setTitle($faker->sentence());
             $actuality->setDescription($faker->text);
             $actuality->setPicture($imageName);
+            $slug = $this->slugify->generate($actuality->getTitle());
+            $actuality->setSlug($slug);
             $manager->persist($actuality);
         }
         $manager->flush();

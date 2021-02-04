@@ -6,6 +6,7 @@ use App\Entity\Actuality;
 use App\Entity\ActualitySearch;
 use App\Form\SearchActualityType;
 use App\Repository\ActualityRepository;
+use App\Services\Slugify;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -21,10 +22,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class ActualityController extends AbstractController
 {
     private const RESULT_PAGE = 15;
+
     /**
      * @Route("/", name="index")
      * @param ActualityRepository $actualityRepository
      * @param Request $request
+     * @param PaginatorInterface $paginator
      * @return Response
      */
     public function index(ActualityRepository $actualityRepository, Request $request, PaginatorInterface $paginator): Response
@@ -51,7 +54,7 @@ class ActualityController extends AbstractController
     /**
      * @param Actuality $actuality
      * @return Response
-     * @Route("/{id}", name="show", methods={"GET"})
+     * @Route("/{slug}", name="show", methods={"GET"})
      */
     public function show(Actuality $actuality): Response
     {
