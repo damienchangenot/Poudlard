@@ -1,0 +1,17 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{parent()}} Contacter le directeur{% endblock %}
+
+{% block body %}
+<section class="my-5">
+    <h1 class="text-center">Contacter le directeur</h1>
+    <div class="container">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <div class="text-center">
+            <button class="btn btn-secondary rounded-pill">{{ button_label|default('Envoyer') }}</button>
+        </div>
+        {{ form_end(form) }}
+    </div>
+</section>
+{% endblock %}
