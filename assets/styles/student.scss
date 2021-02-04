@@ -1,0 +1,19 @@
+@import "variable";
+
+.page-link, .page-item.disabled .page-link {
+  background-color: $dark;
+  border-color: $dark;
+  color: $secondary;
+}
+
+.page-link:hover{
+  background-color: $warning;
+  border-color: $warning;
+  color: $dark;
+}
+
+.page-item.active .page-link{
+  background-color: $warning;
+  color: $dark;
+  border-color: $warning;
+}

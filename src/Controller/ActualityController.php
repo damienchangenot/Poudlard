@@ -6,6 +6,7 @@ use App\Entity\Actuality;
 use App\Entity\ActualitySearch;
 use App\Form\SearchActualityType;
 use App\Repository\ActualityRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -19,13 +20,14 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ActualityController extends AbstractController
 {
+    private const RESULT_PAGE = 15;
     /**
      * @Route("/", name="index")
      * @param ActualityRepository $actualityRepository
      * @param Request $request
      * @return Response
      */
-    public function index(ActualityRepository $actualityRepository, Request $request): Response
+    public function index(ActualityRepository $actualityRepository, Request $request, PaginatorInterface $paginator): Response
     {
         $actualitySearch = new ActualitySearch();
         $form = $this->createForm(SearchActualityType::class, $actualitySearch);
@@ -36,6 +38,10 @@ class ActualityController extends AbstractController
         } else {
             $actualities = $actualityRepository->findBy([],['id' => 'DESC']);
         }
+        $actualities = $paginator->paginate($actualities,
+            $request->query->getInt('page',1),
+            self::RESULT_PAGE
+        );
 
         return $this->render('actuality/index.html.twig', [
             'actualities' => $actualities,

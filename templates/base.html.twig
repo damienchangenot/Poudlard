@@ -9,11 +9,10 @@
         {% endblock %}
         <link rel="icon" href="{{ asset('build/favicon.jpg') }}">
     </head>
+        {% block navbar %}{% endblock %}
     <body  data-controller="symfony--ux-swup--swup"
            data-theme="slide" >
-    <header>
-    {% block navbar %}{% endblock %}
-    </header>
+
     {% for label, messages in app.flashes %}
     {% for message in messages %}
         <div class="alert text-center alert-{{ label }} mb-0">
