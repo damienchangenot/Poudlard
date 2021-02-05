@@ -15,6 +15,8 @@ class SecurityController extends AbstractController
 {
     /**
      * @Route("/login", name="app_login")
+     * @param AuthenticationUtils $authenticationUtils
+     * @return Response
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
@@ -48,6 +50,10 @@ class SecurityController extends AbstractController
     {
         /** @var User $user */
         $user = $this->getUser();
+        if ($user->getIsEdited() == false){
+            $this->addFlash('danger', 'Vous devez d\'abord édité votre profil pour accéder à cette page');
+            return $this->redirectToRoute('home_index');
+        }
         $student = $studentRepository->findOneBy(['user' => $user]);
         return $this->render('security/profil.html.twig',[
             'user' =>  $user,

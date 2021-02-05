@@ -26,6 +26,12 @@ class TrombinoscopeController extends AbstractController
      */
     public function index( StudentRepository $studentRepository, Request $request, PaginatorInterface $paginator): Response
     {
+        /** @var User $user */
+        $user =$this->getUser();
+        if ($user->getIsEdited() == false){
+            $this->addFlash('danger', 'Vous devez d\'abord édité votre profil pour accéder à cette page');
+            return $this->redirectToRoute('home_index');
+        }
         $studentSearch = new StudentSearch();
         $form = $this->createForm(SearchStudentType::class, $studentSearch);
         $form->handleRequest($request);

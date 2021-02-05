@@ -12,7 +12,7 @@
         {% block navbar %}{% endblock %}
     <body  data-controller="symfony--ux-swup--swup"
            data-theme="slide" >
-
+    <main id="swup">
     {% for label, messages in app.flashes %}
     {% for message in messages %}
         <div class="alert text-center alert-{{ label }} mb-0">
@@ -20,7 +20,7 @@
         </div>
     {% endfor %}
     {% endfor %}
-    <main id="swup">
+
         {% block body %}{% endblock %}
     </main>
     {% block footer %}{% endblock %}

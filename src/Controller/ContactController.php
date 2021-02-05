@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -32,6 +33,12 @@ class ContactController extends AbstractController
      */
     public function contact(Request $request, MailerInterface $mailer): Response
     {
+        /** @var User $user */
+        $user =$this->getUser();
+        if ($user->getIsEdited() == false){
+            $this->addFlash('danger', 'Vous devez d\'abord édité votre profil pour accéder à cette page');
+            return $this->redirectToRoute('home_index');
+        }
         $defaultData = [];
 
         $form = $this->createFormBuilder($defaultData)
