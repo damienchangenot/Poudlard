@@ -11,6 +11,7 @@
     </head>
         {% block navbar %}{% endblock %}
     <body  data-controller="symfony--ux-swup--swup"
+           data-containers="#swup #nav"
            data-theme="slide" >
     <main id="swup">
     {% for label, messages in app.flashes %}
