@@ -1,5 +1,5 @@
-<div class="card" style="width: 18rem">
-    <img class="card-img-top" src="{{ vich_uploader_asset(people, 'pictureFile') }}" alt="picture of {{ people.name }}">
+<div class="card border-0" style="width: 18rem">
+    <img class="card-img-top " src="{{ vich_uploader_asset(people, 'pictureFile') }}" alt="picture of {{ people.name }}">
     <div class="card-body pt-2 bg-secondary text-white  text-center">
         <h4 class="card-title mb-1 ">{{people.name}}</h4>
         {% if people.isTeacher == true %}
