@@ -5,15 +5,15 @@ namespace App\DataFixtures;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserFixtures extends Fixture
 {
-    private UserPasswordEncoderInterface $passwordEncoder;
-
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    private UserPasswordHasherInterface $hasher;
+    
+    public function __construct(UserPasswordHasherInterface $hasher)
     {
-        $this->passwordEncoder = $passwordEncoder;
+        $this->hasher = $hasher;
     }
 
     public function load(ObjectManager $manager)
@@ -21,7 +21,7 @@ class UserFixtures extends Fixture
         $admin = new User();
         $admin->setEmail('admin@monsite.com');
         $admin->setRoles(['ROLE_ADMIN']);
-        $admin->setPassword($this->passwordEncoder->encodePassword(
+        $admin->setPassword($this->hasher->hashPassword(
             $admin,
             'adminpassword'
         ));
@@ -34,7 +34,7 @@ class UserFixtures extends Fixture
             $student = new User();
             $student->setEmail('student' . $i . '@email.com');
             $student->setRoles(['ROLE_STUDENT']);
-            $student->setPassword($this->passwordEncoder->encodePassword($student, 'student'));
+            $student->setPassword($this->hasher->hashPassword($student, 'student'));
             $student->setIsEdited(true);
             $manager->persist($student);
             $this->addReference('student_' . $i, $student);
@@ -43,7 +43,7 @@ class UserFixtures extends Fixture
             $teacher = new User();
             $teacher->setEmail('teacher' . $i . '@email.com');
             $teacher->setRoles(['ROLE_TEACHER']);
-            $teacher->setPassword($this->passwordEncoder->encodePassword($teacher, 'teacher'));
+            $teacher->setPassword($this->hasher->hashPassword($teacher, 'teacher'));
             $teacher->setIsEdited(true);
             $manager->persist($teacher);
             $this->addReference('teacher_' . $i, $teacher);

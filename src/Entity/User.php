@@ -6,12 +6,13 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
-class User implements UserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
      * @ORM\Id
@@ -51,6 +52,11 @@ class User implements UserInterface
      */
     private $isEdited = false;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Teacher::class, mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $teacher;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -68,10 +74,13 @@ class User implements UserInterface
         return $this;
     }
 
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+
     /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
+     * @deprecated since Symfony 5.3, use getUserIdentifier instead
      */
     public function getUsername(): string
     {
@@ -98,7 +107,7 @@ class User implements UserInterface
     }
 
     /**
-     * @see UserInterface
+     *  @see PasswordAuthenticatedUserInterface
      */
     public function getPassword(): string
     {
@@ -115,8 +124,9 @@ class User implements UserInterface
     /**
      * @see UserInterface
      */
-    public function getSalt()
+    public function getSalt(): ?string
     {
+        return null;
         // not needed when using the "bcrypt" algorithm in security.yaml
     }
 
@@ -171,6 +181,23 @@ class User implements UserInterface
     public function setIsEdited(bool $isEdited): self
     {
         $this->isEdited = $isEdited;
+
+        return $this;
+    }
+
+    public function getTeacher(): ?Teacher
+    {
+        return $this->teacher;
+    }
+
+    public function setTeacher(Teacher $teacher): self
+    {
+        // set the owning side of the relation if necessary
+        if ($teacher->getUser() !== $this) {
+            $teacher->setUser($this);
+        }
+
+        $this->teacher = $teacher;
 
         return $this;
     }

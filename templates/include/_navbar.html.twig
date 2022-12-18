@@ -15,7 +15,7 @@
         </div>
     </div>
     {% if is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('admin_index') }}" class="nav-link btn bg-warning rounded-pill mx-3">Admin</a>
+        <a href="{{ path('admin_index') }}" target="_blank" class="nav-link btn btn-outline-danger  mx-3">Admin</a>
     {% endif %}
     <div class="dropdown">
         <button class="btn btn-dark dropdown-toggle text-warning" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

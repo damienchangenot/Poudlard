@@ -29,6 +29,11 @@ class House
      */
     private $students;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Teacher::class, mappedBy="houseHeadTeacher", cascade={"persist", "remove"})
+     */
+    private $headTeacher;
+
     public function __construct()
     {
         $this->students = new ArrayCollection();
@@ -78,6 +83,28 @@ class House
                 $student->setHouse(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getHeadTeacher(): ?Teacher
+    {
+        return $this->headTeacher;
+    }
+
+    public function setHeadTeacher(?Teacher $headTeacher): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($headTeacher === null && $this->headTeacher !== null) {
+            $this->headTeacher->setHouseHeadTeacher(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($headTeacher !== null && $headTeacher->getHouseHeadTeacher() !== $this) {
+            $headTeacher->setHouseHeadTeacher($this);
+        }
+
+        $this->headTeacher = $headTeacher;
 
         return $this;
     }

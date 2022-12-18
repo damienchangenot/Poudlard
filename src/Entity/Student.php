@@ -66,10 +66,6 @@ class Student
      */
     private $user;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $IsTeacher;
 
     public function getId(): ?int
     {
@@ -145,18 +141,6 @@ class Student
     public function setSubject(string $subject): self
     {
         $this->subject = $subject;
-
-        return $this;
-    }
-
-    public function getIsTeacher(): ?bool
-    {
-        return $this->IsTeacher;
-    }
-
-    public function setIsTeacher(bool $IsTeacher): self
-    {
-        $this->IsTeacher = $IsTeacher;
 
         return $this;
     }
