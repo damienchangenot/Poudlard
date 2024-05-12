@@ -14,22 +14,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * Class ActualityController
- * @package App\Controller
- * @Route ("/actuality", name="actuality_")
- */
+#[Route (path:"/actuality", name:"actuality_")]
 class ActualityController extends AbstractController
 {
     private const RESULT_PAGE = 15;
 
-    /**
-     * @Route("/", name="index")
-     * @param ActualityRepository $actualityRepository
-     * @param Request $request
-     * @param PaginatorInterface $paginator
-     * @return Response
-     */
+    #[Route(path:"/", name:"index")]
     public function index(ActualityRepository $actualityRepository, Request $request, PaginatorInterface $paginator): Response
     {
         $actualitySearch = new ActualitySearch();
@@ -51,11 +41,8 @@ class ActualityController extends AbstractController
             'form' => $form->createView()
         ]);
     }
-    /**
-     * @param Actuality $actuality
-     * @return Response
-     * @Route("/{slug}", name="show", methods={"GET"})
-     */
+    
+    #[Route(path:"/{slug}", name:"show", methods:"GET")]
     public function show(Actuality $actuality): Response
     {
         return $this->render('actuality/show.html.twig', [

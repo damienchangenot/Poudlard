@@ -5,38 +5,28 @@ namespace App\Entity;
 use App\Repository\TeacherRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=TeacherRepository::class)
- */
+#[ORM\Entity(repositoryClass:TeacherRepository::class)]
 class Teacher
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type:"integer")]
+    private int $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $name;
+    #[ORM\Column(type:"string", length:255)]
+    private string $name;
 
-    /**
-     * @ORM\OneToOne(targetEntity=House::class, inversedBy="headTeacher", cascade={"persist", "remove"})
-     */
-    private $houseHeadTeacher;
+    #[ORM\OneToOne(targetEntity:House::class, inversedBy:"headTeacher", cascade:["persist", "remove"])]
+    private ?House $houseHeadTeacher;
 
-    /**
-     * @ORM\OneToOne(targetEntity=User::class, inversedBy="teacher", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $user;
 
-    /**
-     * @ORM\OneToOne(targetEntity=Subject::class, mappedBy="teacher", cascade={"persist", "remove"})
-     */
-    private $subject;
+    #[ORM\OneToOne(targetEntity:User::class, inversedBy:"teacher", cascade:["persist", "remove"])]
+    #[ORM\JoinColumn(nullable:false)]
+    private User $user;
+
+
+    #[ORM\OneToOne(targetEntity:Subject::class, mappedBy:"teacher", cascade:["persist", "remove"])]
+    private ?Subject $subject;
 
     public function getId(): ?int
     {

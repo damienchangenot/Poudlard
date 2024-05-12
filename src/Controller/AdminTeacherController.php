@@ -11,14 +11,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/admin/teacher")
- */
+#[Route("/admin/teacher")]
 class AdminTeacherController extends AbstractController
 {
-    /**
-     * @Route("/", name="admin_teacher_index", methods={"GET"})
-     */
+    #[Route(path:"/", name:"admin_teacher_index", methods:"GET")]
     public function index(TeacherRepository $teacherRepository): Response
     {
         return $this->render('admin/teacher/index.html.twig', [
@@ -26,9 +22,8 @@ class AdminTeacherController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/new", name="admin_teacher_new", methods={"GET", "POST"})
-     */
+
+    #[Route(path:"/new", name:"admin_teacher_new", methods:["GET", "POST"])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $teacher = new Teacher();
@@ -42,15 +37,13 @@ class AdminTeacherController extends AbstractController
             return $this->redirectToRoute('admin_teacher_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('admin/teacher/new.html.twig', [
+        return $this->render('admin/teacher/new.html.twig', [
             'teacher' => $teacher,
             'form' => $form,
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="admin_teacher_show", methods={"GET"})
-     */
+    #[Route(path:"/{id}", name:"admin_teacher_show", methods:"GET")]
     public function show(Teacher $teacher): Response
     {
         return $this->render('admin/teacher/show.html.twig', [
@@ -58,9 +51,7 @@ class AdminTeacherController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}/edit", name="admin_teacher_edit", methods={"GET", "POST"})
-     */
+    #[Route(path:"/{id}/edit", name:"admin_teacher_edit", methods:["GET", "POST"])]
     public function edit(Request $request, Teacher $teacher, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(Teacher1Type::class, $teacher);
@@ -72,15 +63,13 @@ class AdminTeacherController extends AbstractController
             return $this->redirectToRoute('admin_teacher_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('admin/teacher/edit.html.twig', [
+        return $this->render('admin/teacher/edit.html.twig', [
             'teacher' => $teacher,
             'form' => $form,
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="admin_teacher_delete", methods={"POST"})
-     */
+    #[Route(path:"/{id}", name:"admin_teacher_delete", methods:"POST")]
     public function delete(Request $request, Teacher $teacher, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$teacher->getId(), $request->request->get('_token'))) {

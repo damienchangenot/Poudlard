@@ -8,21 +8,17 @@ use App\Entity\Actuality;
 use App\Form\ActualityType;
 use App\Repository\ActualityRepository;
 use App\Services\Slugify;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/admin/actuality", name="admin_actuality_")
- */
+
+#[Route(path:"/admin/actuality", name:"admin_actuality_")]
 class AdminActualityController extends AbstractController
 {
-    /**
-     * @Route("/", name="index", methods={"GET"})
-     * @param ActualityRepository $actualityRepository
-     * @return Response
-     */
+    #[Route(path:"/", name:"index", methods:"GET")]
     public function index(ActualityRepository $actualityRepository): Response
     {
         return $this->render('admin/actuality/index.html.twig', [
@@ -30,20 +26,14 @@ class AdminActualityController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/new", name="new", methods={"GET","POST"})
-     * @param Request $request
-     * @param Slugify $slugify
-     * @return Response
-     */
-    public function new(Request $request, Slugify $slugify): Response
+    #[Route(path:"/new", name:"new", methods:["GET","POST"])]
+    public function new(Request $request, Slugify $slugify, EntityManagerInterface $entityManager): Response
     {
         $actuality = new Actuality();
         $form = $this->createForm(ActualityType::class, $actuality);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
             $slug = $slugify->generate($actuality->getTitle());
             $actuality->setSlug($slug);
             $entityManager->persist($actuality);
@@ -65,13 +55,12 @@ class AdminActualityController extends AbstractController
      * @param Slugify $slugify
      * @return Response
      */
-    public function edit(Request $request, Actuality $actuality, Slugify $slugify): Response
+    public function edit(Request $request, Actuality $actuality, Slugify $slugify, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ActualityType::class, $actuality);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-             $entityManager= $this->getDoctrine()->getManager();
             $slug = $slugify->generate($actuality->getTitle());
             $actuality->setSlug($slug);
             $entityManager->flush();
@@ -92,10 +81,9 @@ class AdminActualityController extends AbstractController
      * @param Actuality $actuality
      * @return Response
      */
-    public function delete(Request $request, Actuality $actuality): Response
+    public function delete(Request $request, Actuality $actuality, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$actuality->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($actuality);
             $entityManager->flush();
         }

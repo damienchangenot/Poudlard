@@ -9,53 +9,33 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-/**
- * @ORM\Entity(repositoryClass=ActualityRepository::class)
- * @Vich\Uploadable
- */
+#[ORM\Entity(repositoryClass: ActualityRepository::class)]
+#[Vich\Uploadable]
 class Actuality
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private int $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $title;
+    #[ORM\Column(type:'string', length:255)]
+    private  string $title;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $picture;
+    #[ORM\Column(type:'string', length:255, nullable:true)]
+    private ?string $picture;
 
-    /**
-     * @Vich\UploadableField(mapping="actuality_file", fileNameProperty="picture")
-     * @Assert\File(
-     *     maxSize="2m",
-     *     mimeTypes={"image/jpeg", "image/png", "image/jpg"}
-     *     )
-     * @var ?File
-     */
+    #[Vich\UploadableField(mapping: 'actuality_file', fileNameProperty: 'picture')]
+    #[Assert\File(maxSize:"2m", mimeTypes:["image/jpeg", "image/png", "image/jpg"])]
     private ?File $pictureFile = null;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
+    #[ORM\Column(type:'datetime', nullable:true)]
     private ?DateTimeInterface $updatedAt;
 
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $description;
+    #[ORM\Column(type:'text')]
+    private string $description;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $slug;
+    #[ORM\Column(type:'string', length:255)]
+    private string $slug;
 
     public function getId(): ?int
     {

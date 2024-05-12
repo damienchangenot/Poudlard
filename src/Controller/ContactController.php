@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -16,21 +15,13 @@ use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-/**
- * Class ContactController
- * @package App\Controller
- * @IsGranted("ROLE_USER")
- */
+
+#[IsGranted("ROLE_USER")]
 class ContactController extends AbstractController
 {
-    /**
-     * @Route("/contact", name="contact")
-     * @param Request $request
-     * @param MailerInterface $mailer
-     * @return Response
-     * @throws TransportExceptionInterface
-     */
+    #[Route(path:"/contact", name:"contact")]
     public function contact(Request $request, MailerInterface $mailer): Response
     {
         /** @var User $user */

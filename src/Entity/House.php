@@ -7,38 +7,27 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=HouseRepository::class)
- */
+#[ORM\Entity(repositoryClass:HouseRepository::class)]
 class House
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type:"integer")]
+    private int $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $name;
+    #[ORM\Column(type:"string", length:255)]
+    private string $name;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Student::class, mappedBy="house", orphanRemoval=true)
-     */
-    private $students;
+    #[ORM\OneToMany(targetEntity:Student::class, mappedBy:"house", orphanRemoval:true)]
+    private Collection $students;
 
-    /**
-     * @ORM\OneToOne(targetEntity=Teacher::class, mappedBy="houseHeadTeacher", cascade={"persist", "remove"})
-     */
-    private $headTeacher;
+    #[ORM\OneToOne(targetEntity:Teacher::class, mappedBy:"houseHeadTeacher", cascade:["persist", "remove"])]
+    private Teacher $headTeacher;
 
     public function __construct()
     {
         $this->students = new ArrayCollection();
     }
-
 
     public function getId(): ?int
     {
@@ -53,7 +42,6 @@ class House
     public function setName(string $name): self
     {
         $this->name = $name;
-
         return $this;
     }
 
@@ -71,7 +59,6 @@ class House
             $this->students[] = $student;
             $student->setHouse($this);
         }
-
         return $this;
     }
 
@@ -83,7 +70,6 @@ class House
                 $student->setHouse(null);
             }
         }
-
         return $this;
     }
 
@@ -98,14 +84,11 @@ class House
         if ($headTeacher === null && $this->headTeacher !== null) {
             $this->headTeacher->setHouseHeadTeacher(null);
         }
-
         // set the owning side of the relation if necessary
         if ($headTeacher !== null && $headTeacher->getHouseHeadTeacher() !== $this) {
             $headTeacher->setHouseHeadTeacher($this);
         }
-
         $this->headTeacher = $headTeacher;
-
         return $this;
     }
 }

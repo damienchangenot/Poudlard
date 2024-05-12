@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\EmailVerifier;
 use App\Security\LoginFormAuthenticator;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,14 +28,8 @@ class RegistrationController extends AbstractController
         $this->emailVerifier = $emailVerifier;
     }
 
-    /**
-     * @Route("/register", name="app_register")
-     * @param Request $request
-     * @param UserPasswordEncoderInterface $passwordEncoder
-     * @param GuardAuthenticatorHandler $guardHandler
-     * @param LoginFormAuthenticator $authenticator
-     */
-    public function register(Request $request, UserPasswordHasherInterface $passwordEncoder, LoginFormAuthenticator $authenticator, UserAuthenticatorInterface $userAuthenticator) 
+    #[Route(path:"/register", name:"app_register")]
+    public function register(Request $request, UserPasswordHasherInterface $passwordEncoder, LoginFormAuthenticator $authenticator, UserAuthenticatorInterface $userAuthenticator, EntityManagerInterface $entityManager) 
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -43,13 +38,12 @@ class RegistrationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
             $user->setPassword(
-                $passwordEncoder->encodePassword(
+                $passwordEncoder->hashPassword(
                     $user,
                     $form->get('plainPassword')->getData()
                 )
             );
 
-            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
 
@@ -75,11 +69,7 @@ class RegistrationController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/verify/email", name="app_verify_email")
-     * @param Request $request
-     * @return Response
-     */
+    #[Route(path:"/verify/email", name:"app_verify_email")]
     public function verifyUserEmail(Request $request): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');

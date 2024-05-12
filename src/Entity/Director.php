@@ -9,55 +9,37 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-/**
- * @ORM\Entity(repositoryClass=DirectorRepository::class)
- * @Vich\Uploadable
- */
+#[ORM\Entity(repositoryClass:DirectorRepository::class)]
+#[Vich\Uploadable]
 class Director
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type:"integer")]
+    private int $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $name;
+    #[ORM\Column(type:"string", length:255)]
+    private string $name;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $picture;
+    #[ORM\Column(type:"string", length:255)]
+    private string $picture;
 
-    /**
-     * @Vich\UploadableField(mapping="picture_file", fileNameProperty="picture")
-     * @Assert\File(
-     *     maxSize="1m",
-     *     mimeTypes={"image/jpeg", "image/png"}
-     *     )
-     * @var ?File
-     */
+    #[Vich\UploadableField(mapping:"picture_file", fileNameProperty:"picture")]
+    #[Assert\File(
+          maxSize:"1m",
+          mimeTypes:["image/jpeg", "image/png"]
+          )]
     private ?File $pictureFile = null;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
+    #[ORM\Column(type:"datetime", nullable:true)]
     private ?DateTimeInterface $updatedAt;
 
-
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
+    #[ORM\Column(type:"string", nullable:true)]
     private ?string $phoneNumber;
 
-    /**
-     * @ORM\OneToOne(targetEntity=User::class, cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $user;
+    #[ORM\OneToOne(targetEntity:User::class, cascade:["persist", "remove"])]
+    #[ORM\JoinColumn(nullable:false)]
+    private User $user;
 
     public function getId(): ?int
     {

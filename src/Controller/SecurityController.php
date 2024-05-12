@@ -13,11 +13,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
-    /**
-     * @Route("/login", name="app_login")
-     * @param AuthenticationUtils $authenticationUtils
-     * @return Response
-     */
+    #[Route(path:"/login", name:"app_login")]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         // if ($this->getUser()) {
@@ -32,20 +28,13 @@ class SecurityController extends AbstractController
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
-    /**
-     * @Route("/logout", name="app_logout")
-     */
+    #[Route(path:"/logout", name:"app_logout")]
     public function logout()
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 
-    /**
-     * @Route ("/profil", name="app_profil")
-     * @param StudentRepository $studentRepository
-     * @param DirectorRepository $directorRepository
-     * @return Response
-     */
+    #[Route (path:"/profil", name:"app_profil")]
     public function profil( StudentRepository $studentRepository, DirectorRepository $directorRepository): Response
     {
         /** @var User $user */

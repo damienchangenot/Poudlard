@@ -5,28 +5,21 @@ namespace App\Entity;
 use App\Repository\SubjectRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=SubjectRepository::class)
- */
+
+#[ORM\Entity(repositoryClass:SubjectRepository::class)]
 class Subject
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type:"integer")]
+    private int $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $name;
+    #[ORM\Column(type:"string", length:255)]
+    private string $name;
 
-    /**
-     * @ORM\OneToOne(targetEntity=Teacher::class, inversedBy="subject", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $teacher;
+    #[ORM\OneToOne(targetEntity:Teacher::class, inversedBy:"subject", cascade:["persist", "remove"])]
+    #[ORM\JoinColumn(nullable:false)]
+    private Teacher $teacher;
 
     public function getId(): ?int
     {

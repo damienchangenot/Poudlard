@@ -6,21 +6,16 @@ use App\Entity\Student;
 use App\Form\StudentType;
 use App\Form\TeacherType;
 use App\Repository\StudentRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/admin/student" , name="admin_student_")
- */
+#[Route(path:"/admin/student" , name:"admin_student_")]
 class AdminStudentController extends AbstractController
 {
-    /**
-     * @Route("/", name="index", methods={"GET"})
-     * @param StudentRepository $studentRepository
-     * @return Response
-     */
+    #[Route(path:"/", name:"index", methods:"GET")]
     public function index(StudentRepository $studentRepository): Response
     {
         return $this->render('admin/student/index.html.twig', [
@@ -28,11 +23,7 @@ class AdminStudentController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="show", methods={"GET"})
-     * @param Student $student
-     * @return Response
-     */
+    #[Route(path:"/{id}", name:"show", methods:"GET")]
     public function show(Student $student): Response
     {
         return $this->render('admin/student/show.html.twig', [
@@ -40,13 +31,8 @@ class AdminStudentController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}/edit", name="edit", methods={"GET","POST"})
-     * @param Request $request
-     * @param Student $student
-     * @return Response
-     */
-    public function edit(Request $request, Student $student): Response
+    #[Route(path:"/{id}/edit", name:"edit", methods:["GET","POST"])]
+    public function edit(Request $request, Student $student, EntityManagerInterface $entityManager): Response
     {
         if ($student->getIsTeacher() == false) {
             $form = $this->createForm(StudentType::class, $student);
@@ -56,7 +42,7 @@ class AdminStudentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $entityManager->flush();
             $this->addFlash('success', 'Si c\'est encore un coup Peeves il va m\'entendre ce coup-ci...');
             return $this->redirectToRoute('admin_student_index');
         }
@@ -67,16 +53,10 @@ class AdminStudentController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="delete", methods={"DELETE"})
-     * @param Request $request
-     * @param Student $student
-     * @return Response
-     */
-    public function delete(Request $request, Student $student): Response
+    #[Route(path:"/{id}", name:"delete", methods:"DELETE")]
+    public function delete(Request $request, Student $student, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$student->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($student);
             $entityManager->flush();
         }

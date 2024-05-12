@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Entity;
-
 
 use Doctrine\Common\Collections\Collection;
 use phpDocumentor\Reflection\Types\Boolean;

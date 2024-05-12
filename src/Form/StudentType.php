@@ -16,7 +16,7 @@ use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class StudentType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('name', TextType::class,[
@@ -52,7 +52,7 @@ class StudentType extends AbstractType
         ;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Student::class,
